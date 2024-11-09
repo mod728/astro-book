@@ -1,0 +1,49 @@
+---
+import { Image } from "astro:assets"
+import { getCollection } from "astro:content"
+import Layout from "../../components/layout.astro" 
+import Pagination from "../../components/pagination.astro"
+
+export async function getStaticPaths({ paginate }) {
+    const allBlogs = await getCollection("blog")
+    const orderedAllBlogs = allBlogs.sort((a, b) => {
+        return b.data.id - a.data.id
+    })
+    
+    const pathsData = orderedAllBlogs.map(singleBlog => ({
+        params: {
+            slug: singleBlog.slug
+        },
+        props: {
+            singleBlog: singleBlog
+        }
+    }))
+    return paginate(pathsData, { pageSize: 3 })
+}
+---
+
+<Layout title="ブログ" description="これはブログページです">
+    <div class="wrapper">
+        <div class="container">   
+            <h1>Blog</h1>
+            <p>エンジニアの日常生活をお届けします</p>
+            {Astro.props.page.data.map(singleBlog => 
+                <div class="blogCard"> 
+                    <div class="cardContainer">
+                        <h2>{singleBlog.props.singleBlog.data.title}</h2>
+                        <p>{singleBlog.props.singleBlog.data.excerpt}</p>
+                        <p>{singleBlog.props.singleBlog.data.date}</p>
+                        <a href={"/blog/" + singleBlog.props.singleBlog.slug}>Read More</a>
+                    </div>
+                    <div class="blogImg">
+                        <Image src={singleBlog.props.singleBlog.data.image} 
+                                alt="card-image" 
+                                height={300} width={1000}
+                        />
+                    </div>
+                </div>
+            )}
+        </div>
+        <Pagination lastPage={Astro.props.page.lastPage}/>
+    </div>
+</Layout> 

@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets"
+import { getCollection } from "astro:content"
+import Layout from "../../components/layout.astro"
+import Pagination from "../../components/pagination.astro"
+
+const allBlogs = await getCollection("blog")
+
+const orderedAllBlogs = allBlogs.sort((a, b) => {
+    return b.data.id - a.data.id
+})  
+
+const pageSize = 3
+const lastPage = orderedAllBlogs.length / pageSize
+const limitedBlogs = orderedAllBlogs.slice(0, pageSize)
+---
+
+<Layout title="ブログ" description="これはブログページです">
+    <div class="wrapper">
+        <div class="container">   
+            <h1>Blog</h1>
+            <p>エンジニアの日常生活をお届けします</p>
+            {limitedBlogs.map(singleBlog => 
+                <div class="blogCard"> 
+                    <div class="cardContainer">
+                        <h2>{singleBlog.data.title}</h2>
+                        <p>{singleBlog.data.excerpt}</p>
+                        <p>{singleBlog.data.date}</p>
+                        <a href={"/blog/" + singleBlog.slug}>Read More</a>
+                    </div>
+                    <div class="blogImg">
+                        <Image src={singleBlog.data.image} 
+                               alt="card-image" 
+                               height={300} width={1000}
+                        />
+                    </div>
+                </div>
+            )} 
+        </div>
+        <Pagination lastPage={lastPage}/>
+    </div>
+</Layout> 

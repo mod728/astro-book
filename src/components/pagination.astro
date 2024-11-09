@@ -1,0 +1,7 @@
+<h2 class="paginationWrapper">
+    {Array.from({ length: Astro.props.lastPage - 1 + 1 }, (_, i) => (
+        <a href={ i === 0 ? `/blog` : `/blog/${i + 1}`}>
+            {i + 1}
+        </a>
+    ))}
+</h2>

@@ -1,0 +1,20 @@
+---
+import { Image } from "astro:assets"
+import GithubLodo from "../images/github.svg"
+import LinkedinLodo from "../images/linkedin.svg"
+import XLogo from "../images/x.svg"
+import FacebookLogo from "../images/facebook.svg"
+---
+
+<footer>
+    <div>
+        <a href="/"><Image src={GithubLodo} alt="logo"/></a>
+        <a href="/"><Image src={LinkedinLodo} alt="logo"/></a>
+        <a href="/"><Image src={XLogo} alt="logo"/></a>
+        <a href="/"><Image src={FacebookLogo} alt="logo"/></a>
+        <hr/>
+        <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
+        <p>©{new Date().getFullYear()} Abe Hiroki</p>
+    </div>
+</footer>

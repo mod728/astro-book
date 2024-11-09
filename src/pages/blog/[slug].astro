@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets"               
+import { getCollection } from "astro:content"
+import Layout from "../../components/layout.astro" 
+import PrevNext from "../../components/prevNext.astro"
+
+export async function getStaticPaths(){
+    const allBlogs = await getCollection("blog")
+    const pathsData = allBlogs.map(singleBlog => ({
+        params: {
+            slug: singleBlog.slug
+        },
+        props: {                         
+            singleBlog: singleBlog       
+        }                                
+    }))
+    return pathsData
+}
+
+const allBlogs = await getCollection("blog")
+const prev = allBlogs.filter(blog => blog.data.id === Astro.props.singleBlog.data.id - 1)
+const next = allBlogs.filter(blog => blog.data.id === Astro.props.singleBlog.data.id + 1)
+---
+
+<Layout title={Astro.props.singleBlog.data.title}
+        description={Astro.props.singleBlog.data.excerpt}
+>
+    <div class="img-container">
+        <Image src={Astro.props.singleBlog.data.image}
+               alt="blog-image" 
+               height={500} width={1000}
+        />
+    </div>
+    <div class="wrapper">
+        <div class="container">               
+            <h1>{Astro.props.singleBlog.data.title}</h1>
+            <p>{Astro.props.singleBlog.data.date}</p> 
+            <div>{Astro.props.singleBlog.body}</div>
+        </div> 
+        <PrevNext prev={prev} next={next}/>
+    </div>
+</Layout>
