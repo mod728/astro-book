@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets"
+import Layout from "../components/layout.astro"
+import Hero from "../images/index-hero.jpg"
+import Profile from "../images/profile.jpg" 
+import JSLogo from "../images/javascript.svg"    
+import ReactLogo from "../images/react.svg"
+import NextJsLogo from "../images/next.svg"
+import AstroLogo from "../images/astro.svg"
+---
+
+<Layout title="Abe Hiroki">
+	<div class="hero">
+		<Image src={Hero} alt="hero"/> 
+		<div class="textContainer">
+			<h1>I'm Abe Hiroki!</h1>
+			<h3>JavaScript Developer</h3>
+		</div>
+	</div>
+	<div class="container">
+		<div class="profile">
+			<div>
+				<h2>JavaScript Nerd</h2>
+				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+			</div>
+			<div>
+				<Image src={Profile} alt="profile"/>
+			</div>
+		</div>
+		<div class="skills">
+			<h2>Skills</h2>
+			<div class="skillsContainer">
+				<div><Image src={JSLogo} alt="javascript"/><span>JavaScript / 10 years</span></div>
+				<div><Image src={ReactLogo} alt="react"/><span>React / 5 years</span></div>
+				<div><Image src={NextJsLogo} alt="next"/><span>Next.JS / 3 years</span></div>
+				<div><Image src={AstroLogo} alt="Astro"/><span>Astro / 3 years</span></div>
+			</div>
+		</div>
+		<div class="ctaButton">
+			<a href="/contact">Make It Happen!</a>
+		</div>
+	</div>
+</Layout> 
