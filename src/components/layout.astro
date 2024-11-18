@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions"
 import "../style/styles.css"
 import Header from "./header.astro"
 import Footer from "./footer.astro"
@@ -12,6 +13,7 @@ import Footer from "./footer.astro"
 		<meta name="generator" content={Astro.generator}/>
 		<meta name="description" content={Astro.props.description}>
 		<title>{Astro.props.title}</title>
+		<ClientRouter/>
 	</head>
 	<body>
 		<Header/>
